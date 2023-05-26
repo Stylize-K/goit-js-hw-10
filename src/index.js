@@ -1,6 +1,6 @@
 const breedSelect = document.querySelector('.breed-select');
 const divPictEl = document.querySelector('.cat-info-pict');
-const divDiscEl = document.querySelector('.cat-info-disc');
+const divDescEl = document.querySelector('.cat-info-desc');
 
 const KEY =
   'live_HEs7npt4enTv8IppoFAzotzjElNW9aw61wQB5T2Fw18DPSakhIju9elgFzOgYqmc';
@@ -9,7 +9,7 @@ breedSelect.addEventListener('change', onChangeSelect);
 
 function onChangeSelect(event) {
   divPictEl.innerHTML = '';
-  divDiscEl.innerHTML = '';
+  divDescEl.innerHTML = '';
   const breed = event.target.value;
   console.log(breed);
   fetchBreedDesc(breed)
@@ -65,7 +65,8 @@ function renderBreedsSelect(cats) {
 //Функція, що генерує розмітку опису обраної породи кота
 function renderBreedDesc(breed) {
   const markupPicture = `<img class="cat-picture" width=400 src="${breed.url}" alt="${breed.id}">`;
-  const markupDiscript = `<h1>${breed.breeds[0].name}</h1><p>${breed.breeds[0].description}</p><p><b>Temperament:</b> ${breed.breeds[0].temperament}</p>`;
+  const markupDescript = `<h1 class="cat-info-desc-title">${breed.breeds[0].name}</h2><p class="cat-info-desc-desc
+  ">${breed.breeds[0].description}</p><p class="cat-info-disc-temp"><b>Temperament:</b> ${breed.breeds[0].temperament}</p>`;
   divPictEl.insertAdjacentHTML('beforeend', markupPicture);
-  divDiscEl.insertAdjacentHTML('beforeend', markupDiscript);
+  divDescEl.insertAdjacentHTML('beforeend', markupDescript);
 }
