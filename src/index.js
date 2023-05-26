@@ -12,6 +12,7 @@ function onChangeSelect(event) {
   console.log(breed);
   fetchBreedDesc(breed)
     .then(breed => renderBreedDesc(breed))
+    // .then(breed => console.log(breed))
     .catch(error => console.log(error));
 }
 
@@ -39,21 +40,21 @@ function fetchBreeds() {
 
 //Функція, що фетчить опис конкретноъ породи
 function fetchBreedDesc(breed) {
-  return fetch(
-    `https://api.thecatapi.com/v1/images/search?breed_id=${breed}&api_key=${KEY}`
-  ).then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
+  return fetch(`https://api.thecatapi.com/v1/images/${breed}`).then(
+    response => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      return response.json();
     }
-    return response.json();
-  });
+  );
 }
 
 //Функція, що генерує розмітку випадаючого списку
 function renderBreedsSelect(cats) {
   const markup = cats
     .map(cat => {
-      return `<option value="${cat.id}">${cat.name}</option>`;
+      return `<option value="${cat.reference_image_id}">${cat.name}</option>`;
     })
     .join('');
   breedSelect.insertAdjacentHTML('beforeend', markup);
@@ -61,6 +62,6 @@ function renderBreedsSelect(cats) {
 
 //Функція, що генерує розмітку орису обраноъ породи кота
 function renderBreedDesc(breed) {
-  const markup = `<img class="cat-picture" width=400 src="${breed[0].url}" alt="${breed[0].id}">`;
+  const markup = `<img class="cat-picture" width=400 src="${breed.url}" alt="${breed.id}"><h1>${breed.breeds[0].name}</h1><p>${breed.breeds[0].description}</p>`;
   divEl.insertAdjacentHTML('beforeend', markup);
 }
