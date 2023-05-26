@@ -11,6 +11,7 @@ const KEY =
 
 breedSelect.addEventListener('change', onChangeSelect);
 
+//Функція, яка виконується при виборі породи кота у списку.
 function onChangeSelect(event) {
   loaderEl.classList.remove('unvisible');
   divPictEl.innerHTML = '';
@@ -26,7 +27,7 @@ function onChangeSelect(event) {
 
 fetchAndRanderBreeds();
 
-//Функція, фетчить API CATS та на основі отриманних данних створює розмітку випадаючого списку
+//Функція, фетчить дані та на їх основі створює розмітку випадаючого списку
 function fetchAndRanderBreeds() {
   loaderEl.classList.remove('unvisible');
   fetchBreeds()
@@ -39,7 +40,7 @@ function fetchAndRanderBreeds() {
     });
 }
 
-//Функція, що фетчить список порід котів
+//Функція, що фетчить список усіх порід котів
 function fetchBreeds() {
   return fetch(`https://api.thecatapi.com/v1/breeds?api_key=${KEY}`).then(
     response => {
@@ -51,7 +52,7 @@ function fetchBreeds() {
   );
 }
 
-//Функція, що фетчить опис конкретноъ породи
+//Функція, що фетчить опис конкретної породи кота
 function fetchBreedDesc(breed) {
   return fetch(
     `https://api.thecatapi.com/v1/images/${breed}?api_key=${KEY}`
@@ -73,7 +74,7 @@ function renderBreedsSelect(cats) {
   breedSelect.insertAdjacentHTML('beforeend', markup);
 }
 
-//Функція, що генерує розмітку опису обраної породи кота
+//Функція, що генерує розмітку опису обраної породи кота (картинка та текст)
 function renderBreedDesc(breed) {
   const markupPicture = `<img class="cat-picture" width=400 src="${breed.url}" alt="${breed.id}">`;
   const markupDescript = `<h1 class="cat-info-desc-title">${breed.breeds[0].name}</h2><p class="cat-info-desc-desc
