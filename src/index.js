@@ -1,6 +1,10 @@
+import Notiflix from 'notiflix';
+
 const breedSelect = document.querySelector('.breed-select');
 const divPictEl = document.querySelector('.cat-info-pict');
 const divDescEl = document.querySelector('.cat-info-desc');
+const loaderEl = document.querySelector('.loader');
+// const errorEl = document.querySelector('.error');
 
 const KEY =
   'live_HEs7npt4enTv8IppoFAzotzjElNW9aw61wQB5T2Fw18DPSakhIju9elgFzOgYqmc';
@@ -8,6 +12,7 @@ const KEY =
 breedSelect.addEventListener('change', onChangeSelect);
 
 function onChangeSelect(event) {
+  loaderEl.classList.remove('unvisible');
   divPictEl.innerHTML = '';
   divDescEl.innerHTML = '';
   const breed = event.target.value;
@@ -15,17 +20,23 @@ function onChangeSelect(event) {
   fetchBreedDesc(breed)
     .then(breed => renderBreedDesc(breed))
     // .then(breed => console.log(breed))
-    .catch(error => console.log(error));
+    .catch(error => Notiflix.Notify.failure(error))
+    .finally(() => loaderEl.classList.add('unvisible'));
 }
 
 fetchAndRanderBreeds();
 
 //Функція, фетчить API CATS та на основі отриманних данних створює розмітку випадаючого списку
 function fetchAndRanderBreeds() {
+  loaderEl.classList.remove('unvisible');
   fetchBreeds()
     // .then(cats => console.log(cats))
     .then(cats => renderBreedsSelect(cats))
-    .catch(error => console.log(error));
+    .catch(error => Notiflix.Notify.failure(error))
+    .finally(() => {
+      loaderEl.classList.add('unvisible');
+      breedSelect.classList.remove('unvisible');
+    });
 }
 
 //Функція, що фетчить список порід котів
@@ -42,14 +53,14 @@ function fetchBreeds() {
 
 //Функція, що фетчить опис конкретноъ породи
 function fetchBreedDesc(breed) {
-  return fetch(`https://api.thecatapi.com/v1/images/${breed}`).then(
-    response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
+  return fetch(
+    `https://api.thecatapi.com/v1/images/${breed}?api_key=${KEY}`
+  ).then(response => {
+    if (!response.ok) {
+      throw new Error(response.status);
     }
-  );
+    return response.json();
+  });
 }
 
 //Функція, що генерує розмітку випадаючого списку
