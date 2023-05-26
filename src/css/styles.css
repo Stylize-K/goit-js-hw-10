@@ -1,5 +1,7 @@
+@import '~node_modules/modern-normalize/modern-normalize.css';
+
 .breed-select {
-  margin: 10px 10px 15px 0px;
+  margin: 15px 15px 15px 15px;
 }
 
 .loader {
@@ -11,8 +13,15 @@
 }
 
 .cat-info {
+  padding-left: 15px;
   display: flex;
   flex-direction: row;
   gap: 15px;
   width: 900px;
+}
+
+.cat-info-desc-title,
+.cat-info-desc-desc,
+.cat-info-desc-temp {
+  line-height: 150%;
 }
