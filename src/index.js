@@ -1,5 +1,6 @@
 const breedSelect = document.querySelector('.breed-select');
-const divEl = document.querySelector('.cat-info');
+const divPictEl = document.querySelector('.cat-info-pict');
+const divDiscEl = document.querySelector('.cat-info-disc');
 
 const KEY =
   'live_HEs7npt4enTv8IppoFAzotzjElNW9aw61wQB5T2Fw18DPSakhIju9elgFzOgYqmc';
@@ -7,7 +8,8 @@ const KEY =
 breedSelect.addEventListener('change', onChangeSelect);
 
 function onChangeSelect(event) {
-  divEl.innerHTML = '';
+  divPictEl.innerHTML = '';
+  divDiscEl.innerHTML = '';
   const breed = event.target.value;
   console.log(breed);
   fetchBreedDesc(breed)
@@ -60,8 +62,10 @@ function renderBreedsSelect(cats) {
   breedSelect.insertAdjacentHTML('beforeend', markup);
 }
 
-//Функція, що генерує розмітку орису обраноъ породи кота
+//Функція, що генерує розмітку опису обраної породи кота
 function renderBreedDesc(breed) {
-  const markup = `<img class="cat-picture" width=400 src="${breed.url}" alt="${breed.id}"><h1>${breed.breeds[0].name}</h1><p>${breed.breeds[0].description}</p>`;
-  divEl.insertAdjacentHTML('beforeend', markup);
+  const markupPicture = `<img class="cat-picture" width=400 src="${breed.url}" alt="${breed.id}">`;
+  const markupDiscript = `<h1>${breed.breeds[0].name}</h1><p>${breed.breeds[0].description}</p><p><b>Temperament:</b> ${breed.breeds[0].temperament}</p>`;
+  divPictEl.insertAdjacentHTML('beforeend', markupPicture);
+  divDiscEl.insertAdjacentHTML('beforeend', markupDiscript);
 }
