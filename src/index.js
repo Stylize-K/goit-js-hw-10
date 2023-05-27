@@ -10,33 +10,6 @@ const loaderEl = document.querySelector('.loader');
 
 breedSelect.addEventListener('change', onChangeSelect);
 
-//Ініціалізація бібліотеки 'slim-select'
-new SlimSelect({
-  select: '#single',
-  settings: {
-    disabled: false,
-    alwaysOpen: false,
-    showSearch: false,
-    searchPlaceholder: 'Search',
-    searchText: 'No Results',
-    searchingText: 'Searching...',
-    searchHighlight: false,
-    closeOnSelect: true,
-    contentLocation: document.body,
-    contentPosition: 'absolute',
-    openPosition: 'auto', // options: auto, up, down
-    placeholderText: 'Select Value',
-    allowDeselect: false,
-    hideSelected: false,
-    showOptionTooltips: false,
-    minSelected: 0,
-    maxSelected: 1000,
-    timeoutDelay: 200,
-    maxValuesShown: 20,
-    maxValuesMessage: '{number} selected',
-  },
-});
-
 fetchAndRenderBreeds();
 
 //Функція, що фетчить дані та на їх основі створює розмітку випадаючого списку (працює відразу після завантаження сторінки)
@@ -84,6 +57,10 @@ function renderBreedsSelect(breeds) {
     })
     .join('');
   breedSelect.insertAdjacentHTML('beforeend', markup);
+  //Ініціалізація бібліотеки 'slim-select'
+  new SlimSelect({
+    select: '#single',
+  });
 }
 
 //Функція, що генерує розмітку опису обраної породи кота (картинка та текст)
