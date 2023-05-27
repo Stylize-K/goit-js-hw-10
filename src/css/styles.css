@@ -1,5 +1,9 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 
+body {
+  background-color: #f5f0ce;
+}
+
 .breed-select {
   margin: 15px 15px 15px 15px;
 }
