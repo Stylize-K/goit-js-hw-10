@@ -4,12 +4,29 @@ body {
   background-color: #f5f0ce;
 }
 
-.unvisible {
-  display: none;
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .container {
   padding: 15px;
+  max-width: 428px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1158px;
+  }
 }
 
 .loader {
@@ -42,10 +59,20 @@ body {
 }
 
 .cat-info {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 25px;
+  margin-bottom: 25px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 15px;
-  width: 900px;
+}
+
+@media screen and (min-width: 768px) {
+  .cat-info {
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .cat-info {
+  }
 }
