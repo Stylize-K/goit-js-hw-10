@@ -14,7 +14,7 @@ fetchAndRenderBreeds();
 function fetchAndRenderBreeds() {
   loaderEl.classList.remove('unvisible');
   fetchBreeds()
-    // .then(cats => console.log(cats))
+    // .then(breeds => console.log(breeds))
     .then(breeds => renderBreedsSelect(breeds))
     .catch(error => {
       console.log(error);
