@@ -4,29 +4,23 @@ body {
   background-color: #f5f0ce;
 }
 
-.breed-select {
-  margin: 15px 15px 15px 15px;
-}
-
 .unvisible {
   display: none;
 }
 
-.loader,
-.error {
-  margin-left: 15px;
-}
-
 .cat-info {
-  padding-left: 15px;
+  margin-top: 15px;
   display: flex;
   flex-direction: row;
   gap: 15px;
   width: 900px;
 }
 
-.cat-info-desc-title,
 .cat-info-desc-desc,
 .cat-info-desc-temp {
   line-height: 150%;
+}
+
+.container {
+  padding: 15px;
 }
