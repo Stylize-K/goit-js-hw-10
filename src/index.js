@@ -1,3 +1,4 @@
+import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
 import Notiflix from 'notiflix';
 
 const breedSelect = document.querySelector('.breed-select');
@@ -5,19 +6,16 @@ const divPictEl = document.querySelector('.cat-info-pict');
 const divDescEl = document.querySelector('.cat-info-desc');
 const loaderEl = document.querySelector('.loader');
 
-const KEY =
-  'live_HEs7npt4enTv8IppoFAzotzjElNW9aw61wQB5T2Fw18DPSakhIju9elgFzOgYqmc';
-
 breedSelect.addEventListener('change', onChangeSelect);
 
 fetchAndRenderBreeds();
 
-//Функція, фетчить дані та на їх основі створює розмітку випадаючого списку
+//Функція, що фетчить дані та на їх основі створює розмітку випадаючого списку (працює відразу після завантаження сторінки)
 function fetchAndRenderBreeds() {
   loaderEl.classList.remove('unvisible');
   fetchBreeds()
     // .then(cats => console.log(cats))
-    .then(cats => renderBreedsSelect(cats))
+    .then(breeds => renderBreedsSelect(breeds))
     .catch(error => {
       console.log(error);
       Notiflix.Notify.failure(
@@ -30,7 +28,7 @@ function fetchAndRenderBreeds() {
     });
 }
 
-//Функція, яка виконується при виборі породи кота у списку.
+//Функція, яка виконується при виборі породи кота у списку (подія change на селекті)
 function onChangeSelect(event) {
   loaderEl.classList.remove('unvisible');
   divPictEl.innerHTML = '';
@@ -49,35 +47,11 @@ function onChangeSelect(event) {
     .finally(() => loaderEl.classList.add('unvisible'));
 }
 
-//Функція, що фетчить список усіх порід котів
-function fetchBreeds() {
-  return fetch(`https://api.thecatapi.com/v1/breeds?api_key=${KEY}`).then(
-    response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
-    }
-  );
-}
-
-//Функція, що фетчить опис конкретної породи кота
-function fetchCatByBreed(breedId) {
-  return fetch(
-    `https://api.thecatapi.com/v1/images/${breedId}?api_key=${KEY}`
-  ).then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  });
-}
-
 //Функція, що генерує розмітку випадаючого списку
-function renderBreedsSelect(cats) {
-  const markup = cats
-    .map(cat => {
-      return `<option value="${cat.reference_image_id}">${cat.name}</option>`;
+function renderBreedsSelect(breeds) {
+  const markup = breeds
+    .map(breed => {
+      return `<option value="${breed.reference_image_id}">${breed.name}</option>`;
     })
     .join('');
   breedSelect.insertAdjacentHTML('beforeend', markup);
