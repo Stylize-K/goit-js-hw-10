@@ -1,5 +1,7 @@
 import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
 import Notiflix from 'notiflix';
+import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css';
 
 const breedSelect = document.querySelector('.breed-select');
 const divPictEl = document.querySelector('.cat-info-pict');
@@ -7,6 +9,33 @@ const divDescEl = document.querySelector('.cat-info-desc');
 const loaderEl = document.querySelector('.loader');
 
 breedSelect.addEventListener('change', onChangeSelect);
+
+//Ініціалізація бібліотеки 'slim-select'
+new SlimSelect({
+  select: '#single',
+  settings: {
+    disabled: false,
+    alwaysOpen: false,
+    showSearch: false,
+    searchPlaceholder: 'Search',
+    searchText: 'No Results',
+    searchingText: 'Searching...',
+    searchHighlight: false,
+    closeOnSelect: true,
+    contentLocation: document.body,
+    contentPosition: 'absolute',
+    openPosition: 'auto', // options: auto, up, down
+    placeholderText: 'Select Value',
+    allowDeselect: false,
+    hideSelected: false,
+    showOptionTooltips: false,
+    minSelected: 0,
+    maxSelected: 1000,
+    timeoutDelay: 200,
+    maxValuesShown: 20,
+    maxValuesMessage: '{number} selected',
+  },
+});
 
 fetchAndRenderBreeds();
 
