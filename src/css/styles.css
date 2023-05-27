@@ -8,12 +8,32 @@ body {
   display: none;
 }
 
-.cat-info {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  width: 900px;
+.container {
+  padding: 15px;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px dotted #2596be;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.unvisible {
+  display: none;
 }
 
 .cat-info-desc-desc,
@@ -21,6 +41,11 @@ body {
   line-height: 150%;
 }
 
-.container {
-  padding: 15px;
+.cat-info {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  width: 900px;
 }
