@@ -57,7 +57,7 @@ function renderBreedsSelect(breeds) {
     })
     .join('');
   breedSelect.insertAdjacentHTML('beforeend', markup);
-  //Ініціалізація бібліотеки 'slim-select'
+  //Ініціалізація бібліотеки 'slim-select' на сгенерований select
   new SlimSelect({
     select: '#single',
   });
