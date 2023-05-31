@@ -1,7 +1,8 @@
-import { fetchBreeds, fetchCatByBreed } from './cat-api';
+import { fetchCatByBreed } from './cat-api';
+import { renderBreedDesc } from './renderBreedDesc';
+import { fetchAndRenderBreeds } from './fetchAndRenderBreeds';
+
 import Notiflix from 'notiflix';
-import SlimSelect from 'slim-select';
-import 'slim-select/dist/slimselect.css';
 
 const breedSelect = document.querySelector('.breed-select');
 const divPictEl = document.querySelector('.cat-info-pict');
@@ -11,24 +12,6 @@ const loaderEl = document.querySelector('.loader');
 breedSelect.addEventListener('change', onChangeSelect);
 
 fetchAndRenderBreeds();
-
-//Функція, що фетчить дані та на їх основі створює розмітку випадаючого списку (працює відразу після завантаження сторінки)
-function fetchAndRenderBreeds() {
-  loaderEl.classList.remove('unvisible');
-  fetchBreeds()
-    // .then(breeds => console.log(breeds))
-    .then(breeds => renderBreedsSelect(breeds))
-    .catch(error => {
-      console.log(error);
-      Notiflix.Notify.failure(
-        'Oops! Something went wrong! Try reloading the page!'
-      );
-    })
-    .finally(() => {
-      loaderEl.classList.add('unvisible');
-      breedSelect.classList.remove('unvisible');
-    });
-}
 
 //Функція, яка виконується при виборі породи кота у списку (подія change на селекті)
 function onChangeSelect(event) {
@@ -49,26 +32,4 @@ function onChangeSelect(event) {
     .finally(() => loaderEl.classList.add('unvisible'));
 }
 
-//Функція, що генерує розмітку випадаючого списку
-function renderBreedsSelect(breeds) {
-  const markup = breeds
-    .map(breed => {
-      return `<option value="${breed.reference_image_id}">${breed.name}</option>`;
-    })
-    .join('');
-  breedSelect.insertAdjacentHTML('beforeend', markup);
-  //Ініціалізація бібліотеки 'slim-select' на сгенерований select
-  new SlimSelect({
-    select: '#single',
-  });
-}
-
-//Функція, що генерує розмітку опису обраної породи кота (картинка та текст)
-function renderBreedDesc(breed) {
-  const markupPicture = `<img class="cat-picture" src="${breed.url}" alt="${breed.id}">`;
-  const markupDescript = `<h2 class="cat-info-desc-title">${breed.breeds[0].name}</h2>
-    <p class="cat-info-desc-desc">${breed.breeds[0].description}</p>
-    <p class="cat-info-desc-temp"><b>Temperament:</b> ${breed.breeds[0].temperament}</p>`;
-  divPictEl.insertAdjacentHTML('beforeend', markupPicture);
-  divDescEl.insertAdjacentHTML('beforeend', markupDescript);
-}
+export { breedSelect, divPictEl, divDescEl, loaderEl };
